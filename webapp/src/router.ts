@@ -8,7 +8,7 @@ import apiClient from "./lib/utils/apiClient";
 import type { User } from "./lib/utils/types";
 import Main from "./views/Main.vue";
 
-async function authGuard(to: any, from: any, next: any) {
+async function authGuard(to: any, _: any, next: any) {
   const authStore = useAuthStore();
   const check = await apiClient.get<{ user: User }>("/auth/check");
   if (check.error) {
@@ -43,25 +43,28 @@ async function adminGuard(to: any, _from: any, next: any) {
 }
 
 const routes = [
-  { path: "/", redirect: "/app", name: "home-redirect" },
-  { path: "/app", component: Main, name: "landing-main" },
+  { path: "/", component: Main, name: "landing-main" },
   { path: "/login", component: LoginView, name: "app-login" },
   { path: "/register", component: RegisterView, name: "app-register" },
   {
-    path: "/app/admin/users",
+    path: "/admin/users",
     component: () => import("./views/admin/AdminUsers.vue"),
     name: "admin-users",
     meta: { requiresAdmin: true },
   },
   {
-    path: "/app/profile",
+    path: "/profile",
     component: () => import("./views/ProfileView.vue"),
     name: "profile",
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    component: () => import("./views/NotFound.vue"),
   },
 ];
 
 const getGuardedRoutes = () => {
-  const guardedMatches = ["app"];
+  const guardedMatches = ["admin"];
   return routes.map((route: any) => {
     if (route.meta?.requiresAdmin) {
       return {
