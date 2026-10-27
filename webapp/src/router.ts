@@ -7,6 +7,7 @@ import { useAuthStore } from "./stores/authStore";
 import apiClient from "./lib/utils/apiClient";
 import type { User } from "./lib/utils/types";
 import Main from "./views/Main.vue";
+import Experience from "./views/Experience.vue";
 
 async function authGuard(to: any, _: any, next: any) {
   const authStore = useAuthStore();
@@ -44,6 +45,7 @@ async function adminGuard(to: any, _from: any, next: any) {
 
 const routes = [
   { path: "/", component: Main, name: "landing-main" },
+  { path: "/experience", component: Experience, name: "experience" },
   { path: "/login", component: LoginView, name: "app-login" },
   { path: "/register", component: RegisterView, name: "app-register" },
   {
@@ -64,7 +66,7 @@ const routes = [
 ];
 
 const getGuardedRoutes = () => {
-  const guardedMatches = ["admin"];
+  const guardedMatches = ["admin", "profile"];
   return routes.map((route: any) => {
     if (route.meta?.requiresAdmin) {
       return {
