@@ -15,6 +15,11 @@ import { RouterLink } from "vue-router";
           >La page avec des dates et des skills</RouterLink
         >
       </li>
+      <li>
+        <RouterLink :to="{ name: 'playlists' }"
+          >La page avec mes playlists</RouterLink
+        >
+      </li>
     </ul>
   </div>
 </template>

@@ -8,6 +8,7 @@ import apiClient from "./lib/utils/apiClient";
 import type { User } from "./lib/utils/types";
 import Main from "./views/Main.vue";
 import Experience from "./views/Experience.vue";
+import PlaylistsView from "./views/PlaylistsView.vue";
 
 async function authGuard(to: any, _: any, next: any) {
   const authStore = useAuthStore();
@@ -46,6 +47,7 @@ async function adminGuard(to: any, _from: any, next: any) {
 const routes = [
   { path: "/", component: Main, name: "landing-main" },
   { path: "/experience", component: Experience, name: "experience" },
+  { path: "/playlists", component: PlaylistsView, name: "playlists" },
   { path: "/login", component: LoginView, name: "app-login" },
   { path: "/register", component: RegisterView, name: "app-register" },
   {
